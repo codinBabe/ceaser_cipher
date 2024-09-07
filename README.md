@@ -9,6 +9,7 @@ git clone https://github.com/codinBabe/ceaser_cipher.git
 ---
 
 **Set Up and start Virtual Environment**
+
 _For Windows:_
 
 ```bash
@@ -33,7 +34,7 @@ pip install -r requirements.txt
 
 ---
 
-**Usage**
+**Usage:**
 _To encrypt or decrypt a PDF, add the PDF file you wish to process, and pass the number of shift positions you want._
 
 _Encryption Example:_
