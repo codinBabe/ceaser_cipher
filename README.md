@@ -8,16 +8,18 @@ git clone (repo url)
 
 ---
 
-**Set Up Virtual Environment**
+**Set Up and start Virtual Environment**
 _For Windows:_
 
 ```bash
+python -m venv cipher
 source cipher/Scripts/activate
 ```
 
 _For macOS/Linux:_
 
 ```bash
+python3 -m venv cipher
 source cipher/bin/activate
 ```
 
