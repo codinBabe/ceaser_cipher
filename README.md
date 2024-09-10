@@ -35,18 +35,21 @@ pip install -r requirements.txt
 ---
 
 **Usage:**
+
 _To encrypt or decrypt a PDF, add the PDF file you wish to process, and pass the number of shift positions you want._
 
 _Encryption Example:_
 
 ```python
-CeaserCipher("My_pdf.pdf", 3).encrypt()
+cipher = CeaserCipher("My_pdf.pdf", 3)
+cipher.encrypt()
 ```
 
 _Decryption Example:_
 
 ```python
-CeaserCipher("My_encrypted_pdf.pdf", 3).decrypt()
+cipher = CeaserCipher("My_encrypted_pdf.pdf", 3)
+ciher.decrypt()
 ```
 
 ---

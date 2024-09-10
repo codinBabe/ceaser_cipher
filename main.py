@@ -9,83 +9,58 @@ from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4
 
 
-class CeaserCipher():
+class CeaserCipher:
     """A class that uses ceaser cipher alogrithim
     to encode and decode a pdf file
     """
-    def __init__(self, pdf_file, s):
+    def __init__(self, pdf_file, shift):
         """Initalize variables"""
         self.pdf_file = pdf_file
-        self.s = s
+        self.shift = shift
+
+    def __shift_char(self, char, shift):
+        """shift a character by a given shift"""
+        if char.isupper():
+            return chr((ord(char) + shift - 65) % 26 + 65)
+        if char.islower():
+            return chr((ord(char) + shift - 97) % 26 + 97)
+        return char
+    
+    def __process_pdf(self, filename, shift):
+        """process the pdf file"""
+        styles = getSampleStyleSheet()
+        styleN = styles['Normal']
+        story = []
+
+        reader = PdfReader(self.pdf_file)
+        doc = SimpleDocTemplate(
+            filename,
+            pagesize=A4,
+            bottomMargin=.4 * inch,
+            topMargin=.6 * inch,
+            rightMargin=.8 * inch,
+            leftMargin=.8 * inch
+        )
+        res = ""
+        for page in reader.pages:
+            text = page.extract_text()
+            for char in text:
+                res += self.__shift_char(char, shift)
+            p = Paragraph(res, styleN)
+            res = ""
+            story.append(p)
+            story.append(PageBreak())
+        doc.build(story)
 
     def encrypt(self):
         """return an encrypted pdf file"""
-        reader = PdfReader(self.pdf_file)
-        styles = getSampleStyleSheet()
-        styleN = styles['Normal']
-        story = []
-
-        pdf_name = "encrypted_doc.pdf"
-        doc = SimpleDocTemplate(
-            pdf_name,
-            pagesize=A4,
-            bottomMargin=.4 * inch,
-            topMargin=.6 * inch,
-            rightMargin=.8 * inch,
-            leftMargin=.8 * inch
-        )
-        res = ""
-        for page in reader.pages:
-            text = page.extract_text()
-            for char in text:
-                if (char.isupper()):
-                    res += chr((ord(char) + self.s - 65) % 26 + 65)
-                elif (char.islower()):
-                    res += chr((ord(char) + self.s - 97) % 26 + 97)
-                else:
-                    res += char
-            p = Paragraph(res, styleN)
-            res = ""
-            story.append(p)
-            story.append(PageBreak())
-        doc.build(
-            story,
-        )
-
+        self.__process_pdf("encrypted_doc.pdf", self.shift)
+    
     def decrypt(self):
         """return a decrypted pdf file"""
-        reader = PdfReader(self.pdf_file)
-        styles = getSampleStyleSheet()
-        styleN = styles['Normal']
-        story = []
+        self.__process_pdf("decrypted_doc.pdf", -self.shift)
 
-        pdf_name = "decrypted_doc.pdf"
-        doc = SimpleDocTemplate(
-            pdf_name,
-            pagesize=A4,
-            bottomMargin=.4 * inch,
-            topMargin=.6 * inch,
-            rightMargin=.8 * inch,
-            leftMargin=.8 * inch
-        )
-        res = ""
-        for page in reader.pages:
-            text = page.extract_text()
-            for char in text:
-                if (char.isupper()):
-                    res += chr((ord(char) - self.s - 65) % 26 + 65)
-                elif (char.islower()):
-                    res += chr((ord(char) - self.s - 97) % 26 + 97)
-                else:
-                    res += char
-            p = Paragraph(res, styleN)
-            res = ""
-            story.append(p)
-            story.append(PageBreak())
-        doc.build(
-            story,
-        )
 
 if __name__ == "__main__":
-    CeaserCipher().encrypt()
-    CeaserCipher().decrypt()
+    cipher = CeaserCipher()
+    cipher.decrypt()
