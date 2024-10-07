@@ -1,22 +1,25 @@
+from datetime import datetime
 from database import Base
-from sqlalchemy import String, Column, Boolean, Integer, ForeignKey
+from sqlalchemy import String, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
 
 class User(Base):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key= True, nullable=False)
-    first_name = Column(String)
-    last_name = Column(String)
+    username = Column(String)
     email = Column(String, unique=True)
     password = Column(String)
-    is_active = Column(Boolean, default=True)
+    documents = relationship("Document", back_populates="owner")
 
 
 class Document(Base):
     __tablename__ = 'documents'
     
     id = Column(Integer, primary_key= True, nullable=False)
-    title = Column(String)
-    content = Column(String)
+    filename = Column(String,index=True)
     owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    is_active = Column(Boolean, default=True)
+    owner = relationship("User", back_populates="documents")
+    uploaded_at = Column(datetime, default=datetime.now)
+    status = Column(String, default='encrypted')
