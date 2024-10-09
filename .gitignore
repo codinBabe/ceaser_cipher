@@ -1,2 +1,4 @@
 ceaser/
 __pycache__/
+.env
+test.db

@@ -19,9 +19,6 @@ def register(user_data:UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login/")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    print("username", form_data.username)
-    print("password", form_data.password)
-
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Incorrect email or password")

@@ -3,11 +3,7 @@ from core.config import settings
 from datetime import datetime, timedelta, timezone
 from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
-from passlib.context import CryptContext
-from fastapi.security import OAuth2PasswordBearer
 
-#oauth2_scheme for token
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 #pwd_context for password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
