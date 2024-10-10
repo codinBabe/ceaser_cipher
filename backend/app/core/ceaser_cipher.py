@@ -76,7 +76,7 @@ class CustomTextReader(BaseReader):
             return f.read()
 
     def write(self, data, output_file=None):
-        output_file = output_file or self.file_path.with_name(self.file_path.stem + "_encrypted.txt")
+        output_file = output_file or str(self.file_path).replace(".txt", "_encrypted.txt")
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(data)
 
@@ -89,7 +89,7 @@ class CustomCsvReader(BaseReader):
             return [row for row in reader]
 
     def write(self, data, output_file=None):
-        output_file = output_file or self.file_path.with_name(self.file_path.stem + "_encrypted.csv")
+        output_file = output_file or str(self.file_path).replace(".csv", "_encrypted.csv")
         with open(output_file, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerows(data)

@@ -2,14 +2,17 @@ from pydantic import BaseModel
 
 class DocumentBase(BaseModel):
     """Document Model"""
-    title : str
+    filename : str
     content : str
+    status : str
+    task_id : str
 
 class DocumentCreate(DocumentBase):
     """extends DocumentBase"""
-    owner_id : int
+    user_id : int
 
 class DocumentResponse(DocumentBase):
+    """document response"""
     id: int
 
     class Config:

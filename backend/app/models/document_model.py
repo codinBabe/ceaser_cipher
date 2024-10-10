@@ -11,7 +11,8 @@ class Document(Base):
 
     filename = Column(String,index=True)
     content = Column(String)
+    status = Column(String, default=None)
+    task_id = Column(String, default=None)
     uploaded_at = Column(DateTime, default=datetime.now(timezone.utc))
-    status = Column(String, default="encrypted")
 
     user = relationship("User", back_populates="documents")

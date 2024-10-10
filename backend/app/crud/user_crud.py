@@ -18,13 +18,10 @@ def authenticate_user(db: Session, email: str, password: str):
         return False
     return user
 
-def get_user(db: Session, user_id: int, token: str):
-    user = db.query(user_model.User).filter(user_model.User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    if not security.verify_token(token, user.id):
-        raise HTTPException(status_code=403, detail="Invalid token")
-    return user
+def get_user(db: Session, user_id: int):
+    return db.query(user_model.User).filter(user_model.User.id == user_id).first()
 
-def get_user_by_email(db: Session, user_email: str):
-    return db.query(user_model.User).filter(user_model.User.email == user_email).first()
+
+def get_current_user(db: Session, token: str):
+    user_id = security.get_user_id_from_token(token)
+    return get_user(db, user_id)

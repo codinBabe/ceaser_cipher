@@ -1,32 +1,25 @@
-from fastapi import APIRouter, File, Depends, UploadFile, HTTPException
+from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session
-from crud import document_crud
-from schemas import document_schema
-from db.session import get_db
-from tasks import encrypt_file, decrypt_file
+import os
 
 router = APIRouter()
 
-@router.post("/upload/")
-async def upload_file(type: str, shift: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
-    if not file.filename.endswith(".pdf", ".txt", ".csv"):
-        raise HTTPException(status_code=400, detail="Unsupported file type")
-    if type == "encrypt":
-        encrypt_file.delay(file.filename, shift)
-    elif type == "decrypt":
-        decrypt_file.delay(file.filename, shift)
-    document = document_crud.create_document(db, document_schema.DocumentCreate(title=file.filename, content=file.file.read()))
-    return document
+TEMP_DIR = "temp"
 
-@router.get("/download/{document_id}")
-async def download_file(document_id: int, db: Session = Depends(get_db)):
-    document = document_crud.get_document(db, document_id)
-    if not document:
-        raise HTTPException(status_code=404, detail="Document not found")
-    return FileResponse(document.title, media_type="application/octet-stream", filename=document.title)
+if not os.path.exists(TEMP_DIR):
+    os.makedirs(TEMP_DIR)
 
-@router.get("/list/")
-async def list_files(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    documents = document_crud.get_documents(db, skip, limit)
-    return documents
+@router.post("/upload_file/")
+async def upload_file(file: UploadFile = File(...)):
+    file_path = os.path.join(TEMP_DIR, file.filename)
+    with open(file_path, "wb") as buffer:
+        buffer.write(file.file.read())
+    return {"message": "File uploaded successfully", "file_path": file_path}
+
+
+@router.get("/download_file/{file_name}")
+async def download_file(file_name: str):
+    file_path = os.path.join(TEMP_DIR, file_name)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path)
