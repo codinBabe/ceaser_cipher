@@ -11,5 +11,7 @@ class Setting(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     DATABASE_URL: str
+    CELERY_BROKER_URL: str
+    CELERY_RESULT_BACKEND: str
 
 settings = Setting()

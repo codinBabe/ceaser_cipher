@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 
 
 class BaseReader(ABC):
+    """Base class for file readers"""
     def __init__(self, file_path) -> None:
         self.file_path = file_path
 
@@ -22,6 +23,7 @@ class BaseReader(ABC):
 
 
 class ReaderFactory:
+    """Factory class to get the appropriate reader based on file type"""
     readers = {
         ".pdf": lambda file_path: CustomPdfReader(file_path),
         ".txt": lambda file_path: CustomTextReader(file_path),
@@ -37,6 +39,7 @@ class ReaderFactory:
 
 
 class CustomPdfReader(BaseReader):
+    """Custom PDF reader class"""
     def read(self):
         text = ""
         with open(self.file_path, "rb") as f:
@@ -67,6 +70,7 @@ class CustomPdfReader(BaseReader):
 
 
 class CustomTextReader(BaseReader):
+    """Custom text reader class"""
     def read(self):
         with open(self.file_path, "r", encoding="utf-8") as f:
             return f.read()
@@ -78,6 +82,7 @@ class CustomTextReader(BaseReader):
 
 
 class CustomCsvReader(BaseReader):
+    """Custom CSV reader class"""
     def read(self):
         with open(self.file_path, "r", encoding="utf-8") as f:
             reader = csv.reader(f)
@@ -90,7 +95,8 @@ class CustomCsvReader(BaseReader):
             writer.writerows(data)
 
 
-def CaesarCipher(text, shift, decrypt=False):
+def caesar_cipher(text, shift, decrypt=False):
+    """Caesar cipher implementation"""
     if decrypt:
         shift = -shift
     result = []
@@ -102,12 +108,3 @@ def CaesarCipher(text, shift, decrypt=False):
             result.append(char)
     return "".join(result)
 
-
-if __name__ == "__main__":
-    path = Path(__file__).resolve().parent
-    filename = path / "Oluwatoyin.pdf"
-    reader = ReaderFactory.get_reader(filename)
-
-    readfile = reader.read()
-    encrypted = CaesarCipher(readfile, 3)
-    reader.write(encrypted)

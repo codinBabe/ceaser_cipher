@@ -13,8 +13,7 @@ def register(user_data:UserCreate, db: Session = Depends(get_db)):
     user = create_user(db, user_data)
     if not user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    access_token = create_access_token(data={"sub": user.email})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"message": "User created successfully"}
 
 
 @router.post("/login/")
