@@ -32,6 +32,7 @@ class ReaderFactory:
 
     @staticmethod
     def get_reader(file_path: Path):
+        file_path = Path(file_path)
         reader_class = ReaderFactory.readers.get(file_path.suffix)
         if reader_class:
             return reader_class(file_path)
@@ -50,7 +51,7 @@ class CustomPdfReader(BaseReader):
 
 
     def write(self, data, output_file=None):
-        output_file = output_file or str(self.file_path).replace(".pdf", "_encrypted.pdf")
+        output_file = output_file
         doc = SimpleDocTemplate(
             output_file,
             pagesize=A4,
@@ -76,7 +77,7 @@ class CustomTextReader(BaseReader):
             return f.read()
 
     def write(self, data, output_file=None):
-        output_file = output_file or str(self.file_path).replace(".txt", "_encrypted.txt")
+        output_file = output_file
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(data)
 
@@ -89,16 +90,14 @@ class CustomCsvReader(BaseReader):
             return [row for row in reader]
 
     def write(self, data, output_file=None):
-        output_file = output_file or str(self.file_path).replace(".csv", "_encrypted.csv")
+        output_file = output_file
         with open(output_file, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerows(data)
 
 
-def caesar_cipher(text, shift, decrypt=False):
-    """Caesar cipher implementation"""
-    if decrypt:
-        shift = -shift
+def cryptify_string(text, shift):
+    """Encrypt/Decrypt text using Caesar cipher"""
     result = []
     for char in text:
         if char.isalpha():
@@ -107,4 +106,25 @@ def caesar_cipher(text, shift, decrypt=False):
         else:
             result.append(char)
     return "".join(result)
+
+
+def caesar_cipher(data, shift, decrypt=False):
+    """Caesar cipher implementation"""
+    if decrypt:
+        shift = -shift
+    
+    result = []
+    if isinstance(data, list):
+        for row in data:
+            cryptify_row = []
+            for item in row:
+                if isinstance(item, str):
+                    cryptify_row.append(cryptify_string(item, shift))
+                else:
+                    cryptify_row.append(item)
+            result.append(cryptify_row)
+    else:
+        result.append(cryptify_string(data, shift))
+    return result
+    
 

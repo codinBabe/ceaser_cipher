@@ -20,7 +20,7 @@ def create_access_token(user_id: str, data: dict = None):
         data = {}
     
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
     to_encode.update(
         {"user_id": user_id, "exp": expire}

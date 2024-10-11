@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class DocumentBase(BaseModel):
     """Document Model"""
     filename : str
-    content : str
+    content : bytes
     status : str
     task_id : str
 

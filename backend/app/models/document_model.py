@@ -1,6 +1,6 @@
 from db.base import Base
 from datetime import datetime, timezone
-from sqlalchemy import String, Column, Integer, ForeignKey, DateTime
+from sqlalchemy import String, Column, Integer, ForeignKey, DateTime, LargeBinary
 from sqlalchemy.orm import relationship
 
 class Document(Base):
@@ -10,9 +10,9 @@ class Document(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     filename = Column(String,index=True)
-    content = Column(String)
-    status = Column(String, default=None)
-    task_id = Column(String, default=None)
+    content = Column(LargeBinary, default=None)
+    status = Column(String, nullable=False)
+    task_id = Column(String, nullable=False)
     uploaded_at = Column(DateTime, default=datetime.now(timezone.utc))
 
     user = relationship("User", back_populates="documents")

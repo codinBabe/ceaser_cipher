@@ -8,7 +8,7 @@ from schemas.user_schema import UserCreate
 
 router = APIRouter()
 
-@router.post("/register/")
+@router.post("/register")
 def register(user_data:UserCreate, db: Session = Depends(get_db)):
     user = create_user(db, user_data)
     if not user:
@@ -16,10 +16,10 @@ def register(user_data:UserCreate, db: Session = Depends(get_db)):
     return {"message": "User created successfully"}
 
 
-@router.post("/login/")
+@router.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Incorrect email or password")
-    access_token = create_access_token(data={"user_id": user.id})
+    access_token = create_access_token(user_id=user.id, data={"user_id": user.id})
     return {"access_token": access_token, "token_type": "bearer"}

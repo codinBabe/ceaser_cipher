@@ -1,9 +1,19 @@
-from celery import shared_task
+from celery import Celery
+from core.config import settings
 from core.ceaser_cipher import caesar_cipher, ReaderFactory
+from pathlib import Path
 import os
 
-@shared_task
-def encrypt_file(file_path: str, shift: int):
+
+celery = Celery(
+    "tasks",
+    broker=settings.CELERY_BROKER_URL,
+    backend=settings.CELERY_RESULT_BACKEND
+)
+
+
+@celery.task
+def encrypt_file(file_path: Path, shift: int):
     reader = ReaderFactory.get_reader(file_path)
     data = reader.read()
     encrypted_data = caesar_cipher(data, shift, decrypt=False)
@@ -18,7 +28,7 @@ def encrypt_file(file_path: str, shift: int):
     return encrypted_file_path
 
 
-@shared_task
+@celery.task
 def decrypt_file(file_path: str, shift: int):
     reader = ReaderFactory.get_reader(file_path)
     data = reader.read()

@@ -5,13 +5,13 @@ from models.document_model import Document
 from schemas.document_schema import DocumentCreate
 from crud.document_crud import create_document
 from core.security import get_user_id_from_token
-from tasks import encrypt_file, decrypt_file
+from .tasks import encrypt_file, decrypt_file
 from celery.result import AsyncResult
 import os
 
 router = APIRouter()
 
-@router.post("/encrypt_file/")
+@router.post("/encrypt_file")
 async def encrypt_file_route(file_path: str, shift: int, token: str, db: Session = Depends(get_db)):
     user_id = get_user_id_from_token(token)
     if not os.path.exists(file_path):
@@ -21,9 +21,10 @@ async def encrypt_file_route(file_path: str, shift: int, token: str, db: Session
         task = encrypt_file.delay(file_path, shift)
         document = DocumentCreate(
             filename=os.path.basename(file_path),
+            content=open(file_path, "rb").read(),
             status="encrypting",
+            task_id=task.id,
             user_id=user_id,
-            task_id=task.id
         )
         create_document(db, document)
         return {"message": "File encryption started", "task_id": task.id}
@@ -32,8 +33,9 @@ async def encrypt_file_route(file_path: str, shift: int, token: str, db: Session
         return {"message": "File encryption started", "task_id": task.id}
 
 
-@router.post("/decrypt_file/")
+@router.post("/decrypt_file")
 async def decrypt_file_route(file_path: str, shift: int, token: str, db: Session = Depends(get_db)):
+    user_id = get_user_id_from_token(token)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
     
@@ -41,8 +43,10 @@ async def decrypt_file_route(file_path: str, shift: int, token: str, db: Session
         task = decrypt_file.delay(file_path, shift)
         document = DocumentCreate(
             filename=os.path.basename(file_path),
+            content=open(file_path, "rb").read(),
             status="decrypting",
-            user_id=token.id
+            user_id=user_id,
+            task_id=task.id
         )
         create_document(db, document)
         return {"message": "File decryption started", "task_id": task.id}

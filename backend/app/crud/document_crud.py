@@ -7,6 +7,7 @@ def create_document(db: Session, document: document_schema.DocumentCreate):
         filename=document.filename,
         content=document.content,
         status=document.status,
+        task_id=document.task_id,
         user_id=document.user_id
     )
     db.add(db_document)
