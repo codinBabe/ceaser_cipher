@@ -1,12 +1,6 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-
 const Home = () => {
   return (
     <div className="min-h-screen">
-      <Header />
-
-      {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center mt-20">
         <h1 className="text-4xl font-extrabold text-pink-500 mb-8">
           Securely Encrypt and Decrypt Your Files
@@ -61,7 +55,6 @@ const Home = () => {
           </button>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };

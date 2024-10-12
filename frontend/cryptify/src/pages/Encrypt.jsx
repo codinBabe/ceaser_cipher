@@ -1,6 +1,3 @@
-import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import UploadFile from "../components/UploadFile";
 import pdfImg from "../assets/pdf-img.svg";
 import fileEncryption from "../assets/howencryptionwork.svg";
@@ -11,7 +8,6 @@ import { Link } from "react-router-dom";
 const Encrypt = () => {
   return (
     <>
-      <Header />
       <main>
         <UploadFile
           heading={"Encrypt Files"}
@@ -236,7 +232,6 @@ const Encrypt = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };
