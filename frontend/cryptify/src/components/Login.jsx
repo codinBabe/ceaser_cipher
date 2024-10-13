@@ -1,6 +1,6 @@
 import React from "react";
 
-const Login = ({ switchToSignup }) => {
+const Login = ({ onClick }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -19,7 +19,7 @@ const Login = ({ switchToSignup }) => {
           <p className="text-sm sm:text-xl">
             Don’t have an account?{" "}
             <button
-              onClick={switchToSignup}
+              onClick={onClick}
               className="text-purple-500 hover:underline"
             >
               Create account

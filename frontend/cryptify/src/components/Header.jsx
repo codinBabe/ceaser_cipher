@@ -5,17 +5,22 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 const Header = () => {
-  const [modalType, setModalType] = React.useState();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = React.useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
 
-  const openModal = (type) => {
-    setModalType(type);
-    setIsModalOpen(true);
+  const openSignUpModal = () => {
+    setIsSignUpModalOpen(true);
+    setIsLoginModalOpen(false);
+  };
+
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+    setIsSignUpModalOpen(false);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setModalType(null), 300);
+    setIsSignUpModalOpen(false);
+    setIsLoginModalOpen(false);
   };
 
   return (
@@ -49,7 +54,7 @@ const Header = () => {
           </li>
           <li>
             <button
-              onClick={() => openModal("login")}
+              onClick={openLoginModal}
               className="bg-pink-700 text-white px-4 py-2 rounded-md hover:bg-pink-900"
             >
               Log in
@@ -58,28 +63,36 @@ const Header = () => {
         </ul>
       </nav>
 
-      {isModalOpen && (
+      {(isSignUpModalOpen || isLoginModalOpen) && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-50"
           onClick={closeModal}
         >
           <div
-            className={`transform transition-transform duration-500 ease-in-out bg-gray-900 rounded-lg shadow-lg w-full max-w-5xl p-8 relative ${
-              isModalOpen ? "translate-x-0" : "-translate-x-full"
+            className={`transform transition-transform duration-500 ease-in-out bg-gray-900 rounded-lg shadow-lg w-full max-w-5xl p-2 relative ${
+              isLoginModalOpen || isSignUpModalOpen
+                ? "translate-x-[48%]"
+                : "translate-x-full"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              &times;
-            </button>
-            {modalType === "login" ? (
-              <Login switchToSignUp={() => openModal("signup")} />
-            ) : (
-              <SignUp switchToLogin={() => openModal("login")} />
-            )}
+            <div className="flex items-center justify-between">
+              <Link
+                to={"/"}
+                className="text-2xl font-bold font-heading flex items-center justify-center"
+              >
+                <img src={Logo} width={60} height={60} alt="logo" />
+                <p className="m-[-23px]">Cryptify</p>
+              </Link>
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-5 text-xl text-gray-500 hover:text-gray-700"
+              >
+                &times;
+              </button>
+            </div>
+            {isLoginModalOpen && <Login onClick={openSignUpModal} />}
+            {isSignUpModalOpen && <SignUp onClick={openLoginModal} />}
           </div>
         </div>
       )}

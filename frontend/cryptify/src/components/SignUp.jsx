@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignUp = ({ switchToLogin }) => {
+const SignUp = ({ onClick }) => {
   const [isEmailFocused, setEmailFocused] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -20,7 +20,7 @@ const SignUp = ({ switchToLogin }) => {
           <p className="text-sm sm:text-xl">
             Already have an account?{" "}
             <button
-              onClick={switchToLogin}
+              onClick={onClick}
               className="text-purple-500 hover:underline"
             >
               Log in
