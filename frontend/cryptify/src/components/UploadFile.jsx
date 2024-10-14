@@ -17,7 +17,7 @@ const UploadFile = ({ heading, bgColor, bgDrag }) => {
   });
 
   return (
-    <section id="encrypt" className="mx-auto max-w-5xl my-8 p-4">
+    <section id="encrypt" className="mx-auto max-w-6xl my-8 p-4">
       <h1 className="text-4xl font-extrabold font-heading text-white mb-8 text-center">
         {heading}
       </h1>

@@ -13,12 +13,12 @@ const Encrypt = () => {
         bgColor={"bg-pink-600"}
         bgDrag={"bg-pink-400"}
       />
-      <section className="mx-auto max-w-5xl px-4 text-lg">
+      <section className="mx-auto max-w-6xl px-4 text-lg">
         <div className="flex items-start justify-between gap-8">
-          <p>
-            Encrypt files online easily with our free file encryptor. Our tools
-            are here to help <br />
-            you get things done—better, faster, smarter.
+          <p className="max-w-2xl">
+            Securely encrypt your files with Cryptify. Our file encryption tool
+            encrypt files online easily for free. Our tools are here to help you
+            get things done—better, faster, smarter.
           </p>
           <ul className="flex flex-col gap-3">
             <li className="flex items-center gap-2">
