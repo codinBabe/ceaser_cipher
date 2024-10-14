@@ -148,12 +148,7 @@ const Decrypt = () => {
         <div className="bg-pink-200 rounded-md p-10 text-black">
           <div className="flex items-center justify-center mt-8">
             <div className="w-full h-full object-contain">
-              <img
-                src={decryptFiles}
-                alt="file decryption icon"
-                width={400}
-                height={400}
-              />
+              <img src={decryptFiles} alt="file decryption icon" />
             </div>
             <div>
               <h2 className="text-4xl font-bold font-heading mb-4">

@@ -4,7 +4,8 @@ import fileEncrypt from "../assets/file-encrypt.svg";
 import fileDecrypt from "../assets/file-decrypt.svg";
 import fileEdit from "../assets/edit-files.svg";
 import editAllFiles from "../assets/edit_all_files.svg";
-import quickDownload from "../assets/easydownload.svg";
+import folderEncryption from "../assets/folder-encryption.svg";
+import folderDecryption from "../assets/easyeditor.svg";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -51,9 +52,9 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-black text-left mt-8">
           <Link
             to="/encrypt"
-            className="flex items-start gap-2 bg-gray-200 border border-gray-700 rounded-md p-4"
+            className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
-            <img src={fileEncrypt} alt="" width={50} height={50} />
+            <img src={fileEncrypt} alt="" width={40} height={40} />
             <div>
               <h3 className="text-xl font-heading font-bold mb-2">
                 File encryption
@@ -63,9 +64,9 @@ const Home = () => {
           </Link>
           <Link
             to={"/decrypt"}
-            className="flex items-start gap-2 bg-gray-200 border border-gray-700 rounded-md p-4"
+            className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
-            <img src={fileDecrypt} alt="" width={50} height={50} />
+            <img src={fileDecrypt} alt="" width={40} height={40} />
             <div>
               <h3 className="text-xl font-heading font-bold mb-2">
                 File decryption
@@ -75,7 +76,7 @@ const Home = () => {
           </Link>
           <Link
             to={"/edit"}
-            className="flex items-start gap-5 bg-gray-200 border border-gray-700 rounded-md p-4"
+            className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
             <img src={fileEdit} alt="" width={40} height={40} />
             <div>
@@ -86,7 +87,7 @@ const Home = () => {
             </div>
           </Link>
         </div>
-        <button className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md mt-6">
+        <button className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md mt-10">
           Explore All Tools
         </button>
       </section>
@@ -101,12 +102,12 @@ const Home = () => {
         </p>
       </section>
       <section className="mx-auto max-w-7xl px-4 mt-32">
-        <div className="flex items-center justify-between gap-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <div>
             <h2 className="text-4xl font-bold font-heading text-white mb-4">
               Work Directly on Your Files
             </h2>
-            <p className="mb-4 text-lg max-w-lg">
+            <p className="text-lg max-w-xl">
               With our tools, you can work directly on your files. No need to
               download and upload them again. Try it out today! It’s free. It’s
               secure. It’s easy.
@@ -116,33 +117,40 @@ const Home = () => {
             <img src={editAllFiles} alt="placeholder for editing all files" />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-10 mt-20">
-          <div>
-            <img src={homeimg1} alt="" />
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-20">
+          <div className="w-2/4 object-contain">
+            <img
+              src={folderEncryption}
+              alt="folder encryption icon"
+              width={500}
+              height={500}
+            />
           </div>
           <div>
             <h2 className="text-4xl font-bold font-heading text-white mb-4">
-              Easy Sharing Once You’re Done
+              Easy File Encryption
             </h2>
-            <p className="mb-4 text-lg max-w-lg">
-              Share your encrypted files with anyone, anywhere. Our file
-              encryptor is designed to make sharing files simple and secure.
+            <p className="text-lg max-w-xl">
+              With our tools, you can encrypt your files with ease. Simply
+              upload your files and encrypt them with a click of a button. Try
+              it out today!
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-10 mt-20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-20">
           <div>
             <h2 className="text-4xl font-bold font-heading text-white mb-4">
-              Create the Perfect File
+              Perfect File Decryption
             </h2>
-            <p className="mb-4 text-lg max-w-lg">
+            <p className="text-lg max-w-xl">
               With our tools, you can decrypt your files to perfection. Edit
               your files with ease and make sure that they are perfect for your
               needs. Try it out today!
             </p>
           </div>
-          <div>
-            <img src={homeimg1} alt="" />
+
+          <div className="w-2/4 object-contain">
+            <img src={folderDecryption} alt="" width={700} height={700} />
           </div>
         </div>
       </section>
