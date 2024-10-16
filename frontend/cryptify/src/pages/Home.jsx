@@ -6,55 +6,59 @@ import fileEdit from "../assets/edit-files.svg";
 import editAllFiles from "../assets/edit_all_files.svg";
 import folderEncryption from "../assets/folder-encryption.svg";
 import folderDecryption from "../assets/easyeditor.svg";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
   return (
     <>
-      <section className="mx-auto max-w-7xl mt-10">
-        <div className="flex items-center justify-between">
+      <section className="mx-auto max-w-7xl px-4 mt-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h1 className="text-5xl font-heading font-extrabold mb-8">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               We make encryption easy.
             </h1>
-            <p className="text-lg max-w-md">
+            <p className="text-lg max-w-md mb-4">
               Upload your PDFs, CSVs, or text files for quick encryption and
               decryption. Simple, fast, and secure.
             </p>
-            <div className="flex items-center gap-5">
-              <button className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md mt-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <button className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md">
                 Get started
               </button>
-              <button
-                onClick={() => navigate("#tools")}
-                className="px-6 py-3 bg-pink-700 hover:bg-pink-800 text-white rounded-md mt-6"
-              >
+              <button className="px-6 py-3 bg-pink-700 hover:bg-pink-800 text-white rounded-md">
                 Explore All Tools
               </button>
             </div>
           </div>
-          <div className="space-x-6">
-            <img src={homeimg1} alt="" />
+          <div className="w-full md:w-1/2">
+            <img
+              src={homeimg1}
+              alt="Illustration showing encryption"
+              className="w-full h-auto"
+            />
           </div>
         </div>
       </section>
-      <section id="#tools" className="mx-auto max-w-5xl mt-20 text-center">
+      <section id="tools" className="mx-auto max-w-5xl px-4 mt-20 text-center">
         <div>
-          <h2 className="text-4xl font-heading font-extrabold mb-4">
+          <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-4">
             Most Popular Tools
           </h2>
-          <p className="text-lg">
+          <p className="text-lg mb-8">
             All tools to encrypt, decrypt and edit your files for free. Try it
             out today!
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-black text-left mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-black">
           <Link
             to="/encrypt"
             className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
-            <img src={fileEncrypt} alt="" width={40} height={40} />
+            <img
+              src={fileEncrypt}
+              alt="File encryption icon"
+              width={40}
+              height={40}
+            />
             <div>
               <h3 className="text-xl font-heading font-bold mb-2">
                 File encryption
@@ -63,10 +67,15 @@ const Home = () => {
             </div>
           </Link>
           <Link
-            to={"/decrypt"}
+            to="/decrypt"
             className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
-            <img src={fileDecrypt} alt="" width={40} height={40} />
+            <img
+              src={fileDecrypt}
+              alt="File decryption icon"
+              width={40}
+              height={40}
+            />
             <div>
               <h3 className="text-xl font-heading font-bold mb-2">
                 File decryption
@@ -75,10 +84,15 @@ const Home = () => {
             </div>
           </Link>
           <Link
-            to={"/edit"}
+            to="/edit"
             className="flex items-start gap-4 bg-gray-200 border border-gray-700 rounded-md p-4"
           >
-            <img src={fileEdit} alt="" width={40} height={40} />
+            <img
+              src={fileEdit}
+              alt="File editing icon"
+              width={40}
+              height={40}
+            />
             <div>
               <h3 className="text-xl font-heading font-bold mb-2">
                 File editing
@@ -91,11 +105,11 @@ const Home = () => {
           Explore All Tools
         </button>
       </section>
-      <section className="mx-auto max-w-xl mt-32 text-center">
-        <h2 className="text-4xl font-heading font-bold mb-2">
+      <section className="mx-auto max-w-xl px-4 mt-32 text-center">
+        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
           Keep Your Simple Tasks Simple
         </h2>
-        <p className="text-left">
+        <p className="text-lg text-left">
           We make sure that your simple tasks are kept simple. With our tools,
           you can encrypt, decrypt, and edit your files with ease. Try it out
           today!
@@ -104,7 +118,7 @@ const Home = () => {
       <section className="mx-auto max-w-7xl px-4 mt-32">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <div>
-            <h2 className="text-4xl font-bold font-heading text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
               Work Directly on Your Files
             </h2>
             <p className="text-lg max-w-xl">
@@ -113,21 +127,24 @@ const Home = () => {
               secure. It’s easy.
             </p>
           </div>
-          <div>
-            <img src={editAllFiles} alt="placeholder for editing all files" />
+          <div className="w-full md:w-1/2">
+            <img
+              src={editAllFiles}
+              alt="Editing files illustration"
+              className="w-full h-auto"
+            />
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-20">
-          <div className="w-2/4 object-contain">
+          <div className="w-full md:w-1/2">
             <img
               src={folderEncryption}
-              alt="folder encryption icon"
-              width={500}
-              height={500}
+              alt="Folder encryption icon"
+              className="w-full h-auto"
             />
           </div>
           <div>
-            <h2 className="text-4xl font-bold font-heading text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
               Easy File Encryption
             </h2>
             <p className="text-lg max-w-xl">
@@ -139,7 +156,7 @@ const Home = () => {
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-20">
           <div>
-            <h2 className="text-4xl font-bold font-heading text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
               Perfect File Decryption
             </h2>
             <p className="text-lg max-w-xl">
@@ -148,9 +165,12 @@ const Home = () => {
               needs. Try it out today!
             </p>
           </div>
-
-          <div className="w-2/4 object-contain">
-            <img src={folderDecryption} alt="" width={700} height={700} />
+          <div className="w-full md:w-1/2">
+            <img
+              src={folderDecryption}
+              alt="Folder decryption illustration"
+              className="w-full h-auto"
+            />
           </div>
         </div>
       </section>

@@ -17,7 +17,7 @@ const Decrypt = () => {
         bgDrag={"bg-purple-400"}
       />
       <section className="mx-auto max-w-6xl px-4 text-lg">
-        <div className="flex items-start justify-between gap-8">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
           <p className="max-w-2xl">
             Easily decrypt your files with Cryptify. Upload your encrypted file
             and get the decrypted file in seconds. Our decryption tool is
@@ -48,7 +48,7 @@ const Decrypt = () => {
               >
                 <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
               </svg>
-              <span>Simply drag & drop your filesto get started.</span>
+              <span>Simply drag & drop your files to get started.</span>
             </li>
             <li className="flex items-center gap-2">
               <svg
@@ -67,7 +67,7 @@ const Decrypt = () => {
         </div>
       </section>
       <section className="mx-auto max-w-6xl px-4 text-lg mt-32">
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div className="flex flex-col items-center justify-center gap-2 text-center">
             <div className="bg-gray-400 rounded-full w-10 h-10 text-center p-1">
               <img src={Light} alt="bulb-icon" />
@@ -92,7 +92,6 @@ const Decrypt = () => {
               and don't add watermarks to your files.
             </p>
           </div>
-
           <div className="flex flex-col items-center justify-center gap-2 text-center">
             <div className="bg-gray-400 rounded-full w-10 h-10 text-center p-1">
               <img src={Cloud} alt="cloud-icon" />
@@ -143,11 +142,10 @@ const Decrypt = () => {
           </div>
         </div>
       </section>
-      {/* TUTORIAL */}
       <section className="mx-auto max-w-5xl px-4 mt-32">
         <div className="bg-pink-200 rounded-md p-10 text-black">
-          <div className="flex items-center justify-center mt-8">
-            <div className="w-full h-full object-contain">
+          <div className="flex flex-col lg:flex-row items-center justify-center mt-8 gap-8">
+            <div className="w-full lg:w-1/2 h-full object-contain">
               <img src={decryptFiles} alt="file decryption icon" />
             </div>
             <div>
@@ -158,9 +156,9 @@ const Decrypt = () => {
                 <p>
                   1. Import or drag and drop your file to our decryption tools
                 </p>
-                <p>2. Choose the number of shift you want to use</p>
+                <p>2. Choose the number of shifts you want to use</p>
                 <p>3. Click the “Decrypt Now” button to decrypt your file</p>
-                <p>.4 Download your decrypted file in seconds</p>
+                <p>4. Download your decrypted file in seconds</p>
               </div>
             </div>
           </div>

@@ -7,15 +7,18 @@ import SignUp from "./SignUp";
 const Header = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = React.useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   const openSignUpModal = () => {
     setIsSignUpModalOpen(true);
     setIsLoginModalOpen(false);
+    setIsMobileMenuOpen(false);
   };
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
     setIsSignUpModalOpen(false);
+    setIsMobileMenuOpen(false);
   };
 
   const closeModal = () => {
@@ -23,39 +26,62 @@ const Header = () => {
     setIsLoginModalOpen(false);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header className="shadow-md sticky top-0 z-50 w-full">
-      <nav className="flex items-center justify-between px-4 py-2 bg-gray-900">
+    <header className="shadow-md sticky top-0 z-50 w-full bg-gray-900">
+      <nav className="flex items-center justify-between px-4 py-2">
         <Link
-          to={"/"}
+          to="/"
           className="text-2xl font-bold font-heading flex items-center justify-center"
         >
           <img src={Logo} width={60} height={60} alt="logo" />
           <p className="m-[-23px]">Cryptify</p>
         </Link>
-        <ul className="flex items-center space-x-10 text-lg">
-          <li>
+        <div className="md:hidden">
+          <button
+            onClick={toggleMobileMenu}
+            className="text-white text-3xl focus:outline-none"
+          >
+            ☰
+          </button>
+        </div>
+        <ul
+          className={`${
+            isMobileMenuOpen ? "block" : "hidden"
+          } md:flex md:items-center md:space-x-6 text-lg bg-gray-900 md:bg-transparent absolute md:static top-14 left-0 w-full md:w-auto transition-all duration-300`}
+        >
+          <li className="border-b border-gray-700 md:border-none">
             <Link
+              to="#"
               onClick={() => alert("Feature coming soon! 🚀")}
-              className="hover:text-pink-400"
+              className="block md:inline-block py-2 px-4 hover:text-pink-400"
             >
               Edit
             </Link>
           </li>
-          <li>
-            <Link to="/encrypt" className="hover:text-pink-400">
+          <li className="border-b border-gray-700 md:border-none">
+            <Link
+              to="/encrypt"
+              className="block md:inline-block py-2 px-4 hover:text-pink-400"
+            >
               Encrypt
             </Link>
           </li>
-          <li>
-            <Link to="/decrypt" className="hover:text-pink-400">
+          <li className="border-b border-gray-700 md:border-none">
+            <Link
+              to="/decrypt"
+              className="block md:inline-block py-2 px-4 hover:text-pink-400"
+            >
               Decrypt
             </Link>
           </li>
           <li>
             <button
               onClick={openLoginModal}
-              className="bg-pink-700 text-white px-4 py-2 rounded-md hover:bg-pink-900"
+              className="block md:inline-block w-full text-center py-2 px-4 bg-pink-700 text-white rounded-md md:hover:bg-pink-900"
             >
               Log in
             </button>
@@ -69,16 +95,16 @@ const Header = () => {
           onClick={closeModal}
         >
           <div
-            className={`transform transition-transform duration-500 ease-in-out bg-gray-900 rounded-lg shadow-lg w-full max-w-5xl p-2 relative ${
+            className={`transform transition-transform duration-500 ease-in-out bg-gray-900 rounded-lg shadow-lg w-full max-w-5xl p-2 relative mx-auto mt-20 ${
               isLoginModalOpen || isSignUpModalOpen
-                ? "translate-x-[48%]"
-                : "translate-x-full"
+                ? "md:translate-x-[24%]"
+                : "-translate-x-full"
             }`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
               <Link
-                to={"/"}
+                to="/"
                 className="text-2xl font-bold font-heading flex items-center justify-center"
               >
                 <img src={Logo} width={60} height={60} alt="logo" />
