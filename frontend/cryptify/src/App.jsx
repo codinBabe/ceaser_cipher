@@ -10,6 +10,7 @@ import MainLayout from "./layouts/MainLayout";
 import Decrypt from "./pages/Decrypt";
 import NotFound from "./pages/NotFound";
 import FAQ from "./pages/FAQ";
+import ProcessFile from "./components/ProcessFile";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,6 +20,7 @@ function App() {
         <Route path="/encrypt" element={<Encrypt />} />
         <Route path="/decrypt" element={<Decrypt />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/process" element={<ProcessFile />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )

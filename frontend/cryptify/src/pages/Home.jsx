@@ -136,7 +136,7 @@ const Home = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-20">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-[40%]">
             <img
               src={folderEncryption}
               alt="Folder encryption icon"

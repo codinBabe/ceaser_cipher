@@ -10,7 +10,7 @@ const Login = ({ onClick }) => {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen p-4 sm:p-8">
+    <section className="flex items-center justify-center p-4 sm:p-8">
       <div className="w-full max-w-md p-6 rounded-lg shadow-md">
         <div className="text-center mb-6">
           <h1 className="text-2xl sm:text-3xl font-extrabold font-heading mb-2">
