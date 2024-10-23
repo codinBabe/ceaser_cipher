@@ -11,3 +11,23 @@ body {
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
 }
+progress {
+  appearance: none;
+}
+
+progress[value] {
+  width: 100%; /* Full width */
+  height: 20px; /* Set height */
+  border-radius: 10px; /* Rounded corners */
+  background-color: #e0e0e0; /* Background color */
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #4caf50; /* Color for the filled portion */
+  border-radius: 10px; /* Match corners */
+}
+
+progress[value]::-moz-progress-bar {
+  background-color: #4caf50; /* Color for Firefox */
+  border-radius: 10px; /* Match corners */
+}

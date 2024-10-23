@@ -21,12 +21,18 @@ const Home = () => {
               decryption. Simple, fast, and secure.
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <button className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md">
+              <a
+                href="#tools"
+                className="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-md"
+              >
                 Get started
-              </button>
-              <button className="px-6 py-3 bg-pink-700 hover:bg-pink-800 text-white rounded-md">
+              </a>
+              <a
+                href="#tools"
+                className="px-6 py-3 bg-pink-700 hover:bg-pink-800 text-white rounded-md"
+              >
                 Explore All Tools
-              </button>
+              </a>
             </div>
           </div>
           <div className="w-full md:w-1/2">

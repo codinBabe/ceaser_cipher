@@ -7,6 +7,9 @@ export default {
         heading: ["Lora", "serif"],
         body: ["Nunito", "sans-serif"],
       },
+      colors: {
+        blue100: "#1E69FF",
+      },
     },
   },
   plugins: [],
