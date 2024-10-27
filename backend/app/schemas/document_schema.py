@@ -2,10 +2,11 @@ from pydantic import BaseModel
 
 class DocumentBase(BaseModel):
     """Document Model"""
-    filename : str
-    content : bytes
-    status : str
-    task_id : str
+    title : str
+    original_document_url : str
+    processed_document_url : str
+    date_created : str
+    date_updated : str
 
 class DocumentCreate(DocumentBase):
     """extends DocumentBase"""

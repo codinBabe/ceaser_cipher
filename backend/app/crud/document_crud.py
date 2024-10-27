@@ -5,7 +5,7 @@ from schemas import document_schema
 def create_document(db: Session, document: document_schema.DocumentCreate):
     db_document = document_model.Document(
         filename=document.filename,
-        content=document.content,
+        storage_path=document.storage_path,
         status=document.status,
         task_id=document.task_id,
         user_id=document.user_id

@@ -13,5 +13,6 @@ class Setting(BaseSettings):
     DATABASE_URL: str
     CELERY_BROKER_URL: str
     CELERY_RESULT_BACKEND: str
+    GCS_BUCKET_NAME: str
 
 settings = Setting()
