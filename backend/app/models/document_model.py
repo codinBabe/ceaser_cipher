@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from sqlalchemy import String, Column, Integer, ForeignKey, DateTime, LargeBinary
 from sqlalchemy.orm import relationship
 
+
 class Document(Base):
     __tablename__ = "documents"
 
@@ -13,6 +14,6 @@ class Document(Base):
     original_document_url = Column(String, nullable=False)
     processed_document_url = Column(String, nullable=False)
     date_created = Column(DateTime, default=datetime.now(timezone.utc))
-    date_updated = Column(DateTime, default=datetime.now(timezone.utc))
+    date_updated = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     user = relationship("User", back_populates="documents")

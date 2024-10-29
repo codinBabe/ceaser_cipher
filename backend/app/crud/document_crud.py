@@ -4,11 +4,12 @@ from schemas import document_schema
 
 def create_document(db: Session, document: document_schema.DocumentCreate):
     db_document = document_model.Document(
-        filename=document.filename,
-        storage_path=document.storage_path,
-        status=document.status,
-        task_id=document.task_id,
-        user_id=document.user_id
+        title=document.title,
+        original_document_url=document.original_document_url,
+        processed_document_url=document.processed_document_url,
+        user_id=document.user_id,
+        date_created=document.date_created,
+        date_updated=document.date_updated
     )
     db.add(db_document)
     db.commit()

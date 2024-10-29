@@ -126,5 +126,3 @@ def caesar_cipher(data, shift, decrypt=False):
     else:
         result.append(cryptify_string(data, shift))
     return result
-    
-
