@@ -17,4 +17,5 @@ Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():
+    """Root route"""
     return {"message": "Welcome to Cryptify API!"}

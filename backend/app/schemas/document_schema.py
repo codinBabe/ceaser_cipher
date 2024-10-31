@@ -4,7 +4,7 @@ from datetime import datetime
 
 class DocumentBase(BaseModel):
     """Document Model"""
-    title : str
+    task_id : str
     original_document_url : str
     processed_document_url : str
     date_created : Optional[datetime]

@@ -4,7 +4,7 @@ from schemas import document_schema
 
 def create_document(db: Session, document: document_schema.DocumentCreate):
     db_document = document_model.Document(
-        title=document.title,
+        task_id=document.task_id,
         original_document_url=document.original_document_url,
         processed_document_url=document.processed_document_url,
         user_id=document.user_id,

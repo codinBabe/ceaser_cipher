@@ -10,9 +10,9 @@ class Document(Base):
     id = Column(Integer, primary_key= True, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    title = Column(String, nullable=False)
+    task_id = Column(String, nullable=True)
     original_document_url = Column(String, nullable=False)
-    processed_document_url = Column(String, nullable=False)
+    processed_document_url = Column(String, nullable=True)
     date_created = Column(DateTime, default=datetime.now(timezone.utc))
     date_updated = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
