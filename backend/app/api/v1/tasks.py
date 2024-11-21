@@ -1,7 +1,10 @@
 from celery import Celery
+from firebase_admin import storage
 from core.config import settings
+from core import firebase_init
 from core.ceaser_cipher import caesar_cipher, ReaderFactory
-from pathlib import Path
+from tempfile import TemporaryDirectory
+from typing import Literal
 import os
 
 
@@ -11,34 +14,39 @@ celery = Celery(
     backend=settings.CELERY_RESULT_BACKEND
 )
 
+bucket = storage.bucket(settings.GCS_BUCKET_NAME)
+
+
+def process_file(file_path: str, shift: int, operation: Literal["encrypt", "decrypt"]) -> str:
+    """Process file with Caesar cipher and upload to cloud storage."""
+
+    with TemporaryDirectory() as temp_dir:
+        local_file_path = os.path.join(temp_dir, os.path.basename(file_path))
+        blob = bucket.blob(file_path)
+        blob.download_to_filename(local_file_path)
+
+        reader = ReaderFactory.get_reader(local_file_path)
+        data = reader.read()
+        processed_data = caesar_cipher(data, shift, decrypt=(operation == "decrypt"))
+
+        output_file_name = f"{os.path.splitext(file_path)[0]}_{operation}{os.path.splitext(file_path)[1]}"
+        processed_file_path = os.path.join(temp_dir, output_file_name)
+        reader.write(processed_data, output_file=processed_file_path)
+
+        destination_path = f"{operation}/{os.path.basename(processed_file_path)}"
+        processed_blob = bucket.blob(destination_path)
+        processed_blob.upload_from_filename(processed_file_path)
+
+        return processed_blob.public_url
+
 
 @celery.task
-def encrypt_file(file_path: Path, shift: int):
-    reader = ReaderFactory.get_reader(file_path)
-    data = reader.read()
-    encrypted_data = caesar_cipher(data, shift, decrypt=False)
-
-    file_name, file_extension = os.path.splitext(file_path)
-    encrypted_file_path = f"{file_name}_encrypted{file_extension}"
-
-    reader.write(encrypted_data, output_file=encrypted_file_path)
-
-    os.remove(file_path)
-    
-    return encrypted_file_path
+def encrypt_file(file_path: str, shift: int) -> str:
+    """Encrypt a file and upload the result to cloud storage."""
+    return process_file(file_path, shift, operation="encrypt")
 
 
 @celery.task
-def decrypt_file(file_path: str, shift: int):
-    reader = ReaderFactory.get_reader(file_path)
-    data = reader.read()
-    decrypted_data = caesar_cipher(data, shift, decrypt=True)
-
-    file_name, file_extension = os.path.splitext(file_path)
-    decrypted_file_path = f"{file_name}_decrypted{file_extension}"
-
-    reader.write(decrypted_data, output_file=decrypted_file_path)
-
-    os.remove(file_path)
-
-    return decrypted_file_path
+def decrypt_file(file_path: str, shift: int) -> str:
+    """Decrypt a file and upload the result to cloud storage."""
+    return process_file(file_path, shift, operation="decrypt")
